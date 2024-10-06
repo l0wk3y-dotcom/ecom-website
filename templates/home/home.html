@@ -1,0 +1,108 @@
+{% include 'base/navbar_base.html' %}
+
+{% block navbar_content %}
+{% load static %}
+{% comment %} <div class="product-container">
+    {% for product in products %}
+    <div class="product-card">
+        <img src="{{ product.product_images.first.product_image.url }}" alt="{{ product.product_name }}">
+        <h2>{{ product.product_name }}</h2>
+        <p>{{ product.product_description }}</p>
+        <p>Category: {{ product.category.name }}</p>
+        <a href="{% url 'product_detail' product.slug %}" class="product-link">View Details</a>
+    </div>
+    {% endfor %}
+</div> {% endcomment %}
+<div class="card-container">
+{% for product in products %}
+    <div class="card">
+        <img src="{{ product.product_images.first.product_image.url }}" alt="Product Image">
+        <a href="{% url 'product_page' product.slug %}">
+            <h3 class="name">{{product.product_name}}</h3>
+        </a>
+        <p class="title">{{product.product_description}}...</p>
+        <p class="price">Price: $100</p>
+        <p class="discount-price">${{product.price}}</p>
+        <p class="vendor">Vendor: Vendor 1</p>
+    </div>
+
+{% endfor %}
+</div>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4;
+    }
+    
+    .card-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        padding: 20px;
+        justify-items: center;
+    }
+    
+    .card {
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        width: 100%;
+        max-width: 350px;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .card img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+    }
+    
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    
+    .card h3 {
+        font-size: 1.5em;
+        margin: 10px 0;
+        color: #333;
+    }
+    
+    .card p {
+        margin: 5px 0;
+        color: #666;
+    }
+    
+    .discounted-price {
+        font-weight: bold;
+        color: #27ae60;
+    }
+    
+    .price {
+        font-weight: bold;
+        text-decoration: line-through;
+        color: #e74c3c;
+    }
+    
+    @media (max-width: 1200px) {
+        .card-container {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .card-container {
+            grid-template-columns: 1fr;
+        }
+    }
+    
+</style>
+{% endblock %}

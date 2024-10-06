@@ -1,0 +1,105 @@
+ {% include "base/navbar_base.html" %}
+
+ {%block navbar_content%}
+
+ <div class="container">
+    <!-- Cart Items Section -->
+    <div class="cart-items-box">
+        <h2>Your Cart</h2>
+        {% if items %}
+        <!--standalone item-->
+        {% for item in items %}
+        <div class="cart-item">
+            <img src="{{item.item.product_images.first.product_image.url}}" alt="Product Image">
+            <div class="cart-item-details">
+                <h5>{{item.item.product_name}}</h5>
+                <p>{{item.get_total_price}}</p>
+            </div>
+            <div class="cart-item-actions">
+                <a href="{% url 'delete_cart_item' item.uid %}"> <button class="btn btn-outline-danger">Remove</button></a>
+                <button class="btn btn-outline-secondary">Like</button>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>your cart is empty</p>
+        {% endif %}
+        <!-- Add more cart items as needed -->
+    </div>
+
+    <!-- Coupon and Summary Section -->
+    <div class="summary-box">
+        <h4>Order Summary</h4>
+        <div class="coupon-input">
+            <input type="text" class="form-control" placeholder="Enter coupon code">
+            <button class="btn btn-primary">Apply</button>
+        </div>
+    </div>
+</div>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 20px;
+    }
+    .container {
+        display: flex;
+        justify-content: space-between;
+    }
+    .cart-items-box {
+        width: 70%;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .cart-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+    .cart-item img {
+        width: 100px;
+        height: auto;
+        border-radius: 8px;
+    }
+    .cart-item-details {
+        flex-grow: 1;
+        margin-left: 20px;
+    }
+    .cart-item-actions {
+        display: flex;
+        align-items: center;
+    }
+    .cart-item-actions button {
+        margin-left: 10px;
+    }
+    .summary-box {
+        width: 25%;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .summary-box h4 {
+        margin-bottom: 20px;
+    }
+    .coupon-input {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .coupon-input input {
+        width: 70%;
+        padding: 5px;
+    }
+    .coupon-input button {
+        padding: 5px 10px;
+    }
+</style>
+
+
+ {% endblock %}
